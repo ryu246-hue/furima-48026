@@ -2,7 +2,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 
-ARG RUBY_VERSION=3.2.0
+ARG RUBY_VERSION=3.2
 
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim-bookworm AS base
 # Rails app lives here
