@@ -27,7 +27,7 @@ FROM base as build
 
 RUN apt-get update -qq && \
 
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev default-libmysqlclient-dev libvips pkg-config && \
 
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
@@ -61,7 +61,7 @@ FROM base
 
 RUN apt-get update -qq && \
 
-    apt-get install --no-install-recommends -y curl libpq5 libvips && \
+    apt-get install --no-install-recommends -y curl libpq5 libmariadb3 libvips && \
 
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
