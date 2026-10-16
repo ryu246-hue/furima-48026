@@ -53,10 +53,8 @@
         <h3 class='reason-list-text'>
           手数料
           <span class='reason-list-blue-text'>業界最安</span>
-        </h3>
-        <p class='reason-list-description'>
           10%でお得に出品&購入！
-        </p>
+        </h3>
       </li>
     </ul>
   </div>
@@ -132,7 +130,7 @@
       <% if @items.present? %>
         <% @items.each do |item| %>
           <li class='list'>
-            <%= link_to "#" do %>
+            <%= link_to item_path(item) do %>
               <div class='item-img-content'>
                 <%= image_tag item.image, class: "item-img" %>
               </div>

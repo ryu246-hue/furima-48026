@@ -5,6 +5,10 @@ class ItemsController < ApplicationController
     @items = Item.order(created_at: :desc)
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
   def new
     @item = Item.new
   end
@@ -13,13 +17,9 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
 
     if @item.save
-
       redirect_to root_path
-
     else
-
       render :new, status: :unprocessable_entity
-
     end
   end
 
