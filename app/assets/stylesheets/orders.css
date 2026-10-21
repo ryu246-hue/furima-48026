@@ -1,0 +1,129 @@
+/* 購入画面全体 */
+.purchase-page {
+  max-width: 720px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+body:has(.purchase-page) {
+  background-color: #f5f5f5;
+}
+
+.purchase-page h1 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.purchase-page h2 {
+  font-size: 19px;
+  font-weight: bold;
+  margin: 35px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #eee;
+}
+
+/* 商品情報 */
+.purchase-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.purchase-item img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.purchase-item p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* カード情報 */
+.card-info {
+  margin-bottom: 30px;
+}
+
+.purchase-page label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 18px 0 8px;
+}
+
+.card-input {
+  min-height: 45px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* 配送先情報 */
+.purchase-page input[type="text"],
+.purchase-page input[type="tel"],
+.purchase-page select {
+  width: 100%;
+  height: 45px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.purchase-page input:focus,
+.purchase-page select:focus {
+  outline: none;
+  border-color: #3ccace;
+}
+
+/* 購入ボタン */
+.purchase-btn {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.purchase-btn input {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ea352d;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.purchase-btn input:hover {
+  background-color: #c92822;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 600px) {
+  .purchase-page {
+    margin: 20px 12px;
+    padding: 24px 18px;
+  }
+
+  .purchase-item {
+    justify-content: center;
+    text-align: center;
+  }
+}

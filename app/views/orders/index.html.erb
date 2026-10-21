@@ -1,0 +1,90 @@
+<div class="purchase-page">
+  <h1>購入内容の確認</h1>
+
+  <%= form_with model: @order_address,
+              url: item_orders_path(@item),
+              id: 'charge-form',
+              local: true,
+              data: {
+                payjp_public_key: Rails.application.credentials.dig(:payjp, :public_key)
+              } do |f| %>
+
+    <%= render 'shared/error_messages', model: f.object %>
+
+    <h2>購入する商品</h2>
+
+    <div class="purchase-item">
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image, size: '150x150' %>
+      <% end %>
+
+      <p><%= @item.name %></p>
+      <p>¥<%= number_with_delimiter(@item.price) %></p>
+    </div>
+
+    <h2>クレジットカード情報</h2>
+
+    <div class="card-info">
+      <div>
+        <label>カード番号</label>
+        <div id="number-form" class="card-input"></div>
+      </div>
+
+      <div>
+        <label>有効期限</label>
+        <div id="expiry-form" class="card-input"></div>
+      </div>
+
+      <div>
+        <label>セキュリティコード</label>
+        <div id="cvc-form" class="card-input"></div>
+      </div>
+    </div>
+
+    <%= f.hidden_field :token, id: 'token' %>
+
+    <h2>配送先情報</h2>
+
+    <div>
+      <%= f.label :postal_code, '郵便番号' %>
+      <%= f.text_field :postal_code, placeholder: '123-4567' %>
+    </div>
+
+    <div>
+      <%= f.label :prefecture_id, '都道府県' %>
+      <%= f.collection_select :prefecture_id,
+                              Prefecture.all,
+                              :id,
+                              :name,
+                              {},
+                              {} %>
+    </div>
+
+    <div>
+      <%= f.label :city, '市区町村' %>
+      <%= f.text_field :city, placeholder: '横浜市緑区' %>
+    </div>
+
+    <div>
+      <%= f.label :addresses, '番地' %>
+      <%= f.text_field :addresses, placeholder: '青山1-1-1' %>
+    </div>
+
+    <div>
+      <%= f.label :building, '建物名' %>
+      <%= f.text_field :building, placeholder: '柳ビル103' %>
+    </div>
+
+    <div>
+      <%= f.label :phone_number, '電話番号' %>
+      <%= f.telephone_field :phone_number, placeholder: '09012345678' %>
+    </div>
+
+    <div class="purchase-btn">
+      <%= f.submit '購入する', id: 'button' %>
+    </div>
+
+  <% end %>
+</div>
+
+<%= javascript_include_tag 'https://js.pay.jp/v2/pay.js' %>
