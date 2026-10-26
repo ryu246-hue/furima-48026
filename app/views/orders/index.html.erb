@@ -1,90 +1,293 @@
-<div class="purchase-page">
-  <h1>購入内容の確認</h1>
+<%= render "shared/second-header" %>
 
-  <%= form_with model: @order_address,
-              url: item_orders_path(@item),
-              id: 'charge-form',
-              local: true,
-              data: {
-                payjp_public_key: Rails.application.credentials.dig(:payjp, :public_key)
-              } do |f| %>
+<div class="transaction-contents">
 
-    <%= render 'shared/error_messages', model: f.object %>
+  <div class="transaction-main">
 
-    <h2>購入する商品</h2>
+    <h1 class="transaction-title-text">購入内容の確認</h1>
 
-    <div class="purchase-item">
+    <%# 購入内容の表示 %>
+
+    <div class="buy-item-info">
+
       <% if @item.image.attached? %>
-        <%= image_tag @item.image, size: '150x150' %>
+
+        <%= image_tag @item.image, class: "buy-item-img" %>
+
       <% end %>
 
-      <p><%= @item.name %></p>
-      <p>¥<%= number_with_delimiter(@item.price) %></p>
-    </div>
+      <div class="buy-item-right-content">
 
-    <h2>クレジットカード情報</h2>
+        <h2 class="buy-item-text"><%= @item.name %></h2>
 
-    <div class="card-info">
-      <div>
-        <label>カード番号</label>
-        <div id="number-form" class="card-input"></div>
+        <div class="buy-item-price">
+
+          <p class="item-price-text">
+
+            ¥<%= number_with_delimiter(@item.price) %>
+
+          </p>
+
+          <p class="item-price-sub-text">
+
+            <%= @item.shipping_charge.name %>
+
+          </p>
+
+        </div>
+
       </div>
 
-      <div>
-        <label>有効期限</label>
-        <div id="expiry-form" class="card-input"></div>
+    </div>
+
+    <%# 支払額の表示 %>
+
+    <div class="item-payment">
+
+      <h2 class="item-payment-title">支払金額</h2>
+
+      <p class="item-payment-price">
+
+        ¥<%= number_with_delimiter(@item.price) %>
+
+      </p>
+
+    </div>
+
+    <%= form_with model: @order_address,
+
+                  url: item_orders_path(@item),
+
+                  id: "charge-form",
+
+                  class: "transaction-form-wrap",
+
+                  local: true,
+
+                  data: {
+
+                    payjp_public_key: Rails.application.credentials.dig(:payjp, :public_key)
+
+                  } do |f| %>
+
+      <%= render "shared/error_messages", model: f.object %>
+
+      <%# カード情報 %>
+
+      <div class="credit-card-form">
+
+        <h2 class="info-input-haedline">クレジットカード情報入力</h2>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <label class="form-text">カード情報</label>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <div id="number-form" class="input-default"></div>
+
+          <div class="available-card">
+
+            <%= image_tag "card-visa.gif", class: "card-logo" %>
+
+            <%= image_tag "card-mastercard.gif", class: "card-logo" %>
+
+            <%= image_tag "card-jcb.gif", class: "card-logo" %>
+
+            <%= image_tag "card-amex.gif", class: "card-logo" %>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <label class="form-text">有効期限</label>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <div class="input-expiration-date-wrap">
+
+            <div id="expiry-form" class="input-default"></div>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <label class="form-text">セキュリティコード</label>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <div id="cvc-form" class="input-default"></div>
+
+        </div>
+
       </div>
 
-      <div>
-        <label>セキュリティコード</label>
-        <div id="cvc-form" class="card-input"></div>
+      <%= f.hidden_field :token, id: "token" %>
+
+      <%# 配送先情報 %>
+
+      <div class="shipping-address-form">
+
+        <h2 class="info-input-haedline">配送先入力</h2>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <%= f.label :postal_code, "郵便番号", class: "form-text" %>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <%= f.text_field :postal_code,
+
+                           class: "input-default",
+
+                           id: "postal-code",
+
+                           placeholder: "例）123-4567",
+
+                           maxlength: 8 %>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <%= f.label :prefecture_id, "都道府県", class: "form-text" %>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <%= f.collection_select :prefecture_id,
+
+                                  Prefecture.all,
+
+                                  :id,
+
+                                  :name,
+
+                                  {},
+
+                                  { class: "select-box", id: "prefecture" } %>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <%= f.label :city, "市区町村", class: "form-text" %>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <%= f.text_field :city,
+
+                           class: "input-default",
+
+                           id: "city",
+
+                           placeholder: "例）横浜市緑区" %>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <%= f.label :addresses, "番地", class: "form-text" %>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <%= f.text_field :addresses,
+
+                           class: "input-default",
+
+                           id: "addresses",
+
+                           placeholder: "例）青山1-1-1" %>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <%= f.label :building, "建物名", class: "form-text" %>
+
+            <span class="form-any">任意</span>
+
+          </div>
+
+          <%= f.text_field :building,
+
+                           class: "input-default",
+
+                           id: "building",
+
+                           placeholder: "例）柳ビル103" %>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="form-text-wrap">
+
+            <%= f.label :phone_number, "電話番号", class: "form-text" %>
+
+            <span class="indispensable">必須</span>
+
+          </div>
+
+          <%= f.telephone_field :phone_number,
+
+                                class: "input-default",
+
+                                id: "phone-number",
+
+                                placeholder: "例）09012345678",
+
+                                maxlength: 11 %>
+
+        </div>
+
       </div>
-    </div>
 
-    <%= f.hidden_field :token, id: 'token' %>
+      <div class="buy-btn">
 
-    <h2>配送先情報</h2>
+        <%= f.submit "購入", class: "buy-red-btn", id: "button" %>
 
-    <div>
-      <%= f.label :postal_code, '郵便番号' %>
-      <%= f.text_field :postal_code, placeholder: '123-4567' %>
-    </div>
+      </div>
 
-    <div>
-      <%= f.label :prefecture_id, '都道府県' %>
-      <%= f.collection_select :prefecture_id,
-                              Prefecture.all,
-                              :id,
-                              :name,
-                              {},
-                              {} %>
-    </div>
+    <% end %>
 
-    <div>
-      <%= f.label :city, '市区町村' %>
-      <%= f.text_field :city, placeholder: '横浜市緑区' %>
-    </div>
+  </div>
 
-    <div>
-      <%= f.label :addresses, '番地' %>
-      <%= f.text_field :addresses, placeholder: '青山1-1-1' %>
-    </div>
-
-    <div>
-      <%= f.label :building, '建物名' %>
-      <%= f.text_field :building, placeholder: '柳ビル103' %>
-    </div>
-
-    <div>
-      <%= f.label :phone_number, '電話番号' %>
-      <%= f.telephone_field :phone_number, placeholder: '09012345678' %>
-    </div>
-
-    <div class="purchase-btn">
-      <%= f.submit '購入する', id: 'button' %>
-    </div>
-
-  <% end %>
 </div>
 
-<%= javascript_include_tag 'https://js.pay.jp/v2/pay.js' %>
+<%= render "shared/second-footer" %>
+
+<%= javascript_include_tag "https://js.pay.jp/v2/pay.js" %>
