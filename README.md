@@ -88,7 +88,7 @@
 
 | city          | string     | null: false                    |
 
-| address       | string     | null: false                    |
+| addresses     | string     | null: false                    |
 
 | building      | string     |                                |
 
