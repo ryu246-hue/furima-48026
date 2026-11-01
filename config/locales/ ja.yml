@@ -2,7 +2,30 @@ ja:
   activerecord:
     attributes:
       user:
+        nickname: "ニックネーム"
+        email: "メールアドレス"
         password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+        last_name: "姓"
+        first_name: "名"
+        last_name_kana: "姓（カナ）"
+        first_name_kana: "名（カナ）"
+        birth_date: "生年月日"
+
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+        taken: "はすでに存在します"
+        blank: "を入力してください"
+        confirmation: "と一致しません"
+        invalid: "は不正な値です"
+
+  errors:
+    messages:
+      taken: "はすでに存在します"
+      blank: "を入力してください"
+      confirmation: "と一致しません"
+      invalid: "は不正な値です"
 
   date:
     order:
