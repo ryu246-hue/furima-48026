@@ -35,12 +35,22 @@ const setupCard = () => {
       const result = await payjp.createToken(numberElement);
 
       if (result.error) {
-        alert(result.error.message);
-        if (button) button.disabled = false;
+        const tokenInput = document.getElementById("token");
+
+        if (tokenInput) {
+          tokenInput.value = "";
+        }
+
+        form.submit();
         return;
       }
 
       const tokenInput = document.getElementById("token");
+
+      if (!tokenInput) {
+        throw new Error("トークン入力欄が見つかりません");
+      }
+
       tokenInput.value = result.id;
 
       form.submit();
