@@ -2,14 +2,14 @@
 
 <%= form_with model: @user, url: user_registration_path, class: 'registration-main', local: true do |f| %>
 
-  <%= render 'shared/error_messages', model: f.object %>
-
   <div class='form-wrap'>
     <div class='form-header'>
       <h1 class='form-header-text'>
         会員情報入力
       </h1>
     </div>
+
+    <%= render 'shared/error_messages', model: f.object %>
 
     <div class="form-group">
       <div class='form-text-wrap'>
@@ -65,9 +65,8 @@
         本人確認
       </p>
       <p class='form-info-text'>
-        安心・安全にご利用いただく<br>
-        ために、お客さまの本人情報<br>
-        の登録にご協力ください。
+        安心・安全にご利用いただくために、お客さまの本人情報の登録にご協力ください。<br>
+        他のお客さまに公開されることはありません。
       </p>
     </div>
 
@@ -123,8 +122,8 @@
             id:"birth-date",
             use_month_numbers: true,
             prompt:'--',
-            start_year: (Time.now.year - 5),
-            end_year: 1930,
+            start_year: 1930,
+            end_year: (Time.current.year - 5),
             date_separator: '%s'
           ),
           "<p> 年 </p>",

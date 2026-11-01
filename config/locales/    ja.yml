@@ -1,0 +1,9 @@
+ja:
+
+  activerecord:
+
+    attributes:
+
+      user:
+
+        password: "パスワード"
