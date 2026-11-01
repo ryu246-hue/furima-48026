@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        password: "パスワード"
+
+  date:
+    order:
+      - :year
+      - :month
+      - :day
