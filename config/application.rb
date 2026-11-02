@@ -17,6 +17,7 @@ module Furima48026
 
     # 英語をデフォルト言語に設定
     config.i18n.default_locale = :en
+    config.active_model.i18n_customize_full_message = true
 
     # Configuration for the application, engines, and railties goes here.
     #

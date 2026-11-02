@@ -29,3 +29,15 @@
 
 en:
   hello: "Hello world"
+
+  activerecord:
+    attributes:
+      user:
+        password: "パスワード"
+
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              format: "%{attribute}%{message}"
