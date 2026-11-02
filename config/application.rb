@@ -15,8 +15,8 @@ module Furima48026
     # not have to be reloaded or eager loaded.
     config.autoload_lib(ignore: %w(assets tasks))
 
-    # 日本語をデフォルト言語に設定
-    config.i18n.default_locale = :ja
+    # 英語をデフォルト言語に設定
+    config.i18n.default_locale = :en
 
     # Configuration for the application, engines, and railties goes here.
     #
