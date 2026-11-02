@@ -30,7 +30,7 @@ class User < ApplicationRecord
   validates :password,
             format: {
               with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,
-              message: 'が無効です。文字と数字の両方を使用してください。'
+              message: 'is invalid. Include both letters and numbers.'
             },
             allow_nil: true
 
